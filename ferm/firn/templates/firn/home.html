@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Bem-Vindo A Fermacia</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firn/main.css' %}"/>
+    {% load static %}
+    <link rel="icon" type="image/icon type" href="{% static 'firn/img/logo.ico'%}">
+</head>
+
+<body>
+<div class="navbar">
+    {% load static %}
+    <img class="navbar-item logo" src="{% static 'firn/img/logo.png'%}">
+    <a href="{% url 'home' %}" class="navbar-brand">Home</a>
+    <a href="{% url 'loja' %}" class="navbar-item">Loja</a>
+    <a href="{% url 'sobre' %}" class="navbar-item">Sobre</a>
+</div>
+
+<div class="body-content">
+   
+    <hr/>
+    <footer>
+        <p>&copy; 2022</p>
+    </footer>
+</div>
+</body>
+</html>
