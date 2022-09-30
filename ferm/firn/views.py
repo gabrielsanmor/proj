@@ -2,6 +2,9 @@ from http.client import HTTPResponse
 import imp
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic import ListView
+from .models import Item
+
 
 # Create your views here.
 def home(request):
@@ -12,3 +15,10 @@ def loja(request):
 
 def sobre(request):
     return render(request,'firn/sobre.html')
+
+class HomeListView(ListView):
+    model = Item
+    
+    def get_context_data(self, **kwargs):
+        context=super(HomeListView,self).get_context_data(**kwargs)
+        return context

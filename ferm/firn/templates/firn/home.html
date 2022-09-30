@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Bem-Vindo A Fermacia</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'firn/main.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firn/styles/main.css' %}"/>
     {% load static %}
     <link rel="icon" type="image/icon type" href="{% static 'firn/img/logo.ico'%}">
 </head>
@@ -19,10 +19,39 @@
 </div>
 
 <div class="body-content">
-   
+
+    {% load static %}
+    <img src="{% static 'firn/img/lab.jpg'%}" class="img-main">
+
+    <div class='packet'>
+    
+        <h3 class="text-main sub-titulo">Serviços para você</h3>
+
+        <p class='text-main'>Aqui na Fermacia faremos o melhor para lhe proporcionar uma experiência que prioriza suas necessidades,
+            a entrega personalizada para você.
+        </p>
+
+    </div>
+    
+    <div class="packet">
+        <h3 class="text-main sub-titulo">Higiene Pessoal</h3>
+
+        {% for item in itensHP%}
+
+            <div class="card">
+                <p>{{ item.nome }}</p>
+                {% if item.imagem%}
+                <img class="img-card" src="{{item.imagem.url}}">
+                {% else%}
+                <img class="img-card" src="{% static 'firn/img/logo.png'%}">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
     <hr/>
     <footer>
-        <p>&copy; 2022</p>
+        <p class="text-rodape">&copy; 2022</p>
     </footer>
 </div>
 </body>
