@@ -5,22 +5,21 @@
     <title>Bem-Vindo A Fermacia</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'firn/styles/main.css' %}"/>
-    {% load static %}
     <link rel="icon" type="image/icon type" href="{% static 'firn/img/logo.ico'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
-<div class="navbar">
-    {% load static %}
-    <img class="navbar-item logo" src="{% static 'firn/img/logo.png'%}">
-    <a href="{% url 'home' %}" class="navbar-brand">Home</a>
-    <a href="{% url 'loja' %}" class="navbar-item">Loja</a>
-    <a href="{% url 'sobre' %}" class="navbar-item">Sobre</a>
-</div>
+    <div class="navbar">
+        <img class="navbar-item logo" src="{% static 'firn/img/logo.png'%}">
+        <a href="{% url 'home' %}" class="navbar-brand">Home</a>
+        <a href="{% url 'loja' %}" class="navbar-item">Loja</a>
+        <a href="{% url 'sobre' %}" class="navbar-item">Sobre</a>
+    </div>
 
 <div class="body-content">
 
-    {% load static %}
     <img src="{% static 'firn/img/lab.jpg'%}" class="img-main">
 
     <div class='packet'>
@@ -32,22 +31,44 @@
         </p>
 
     </div>
-    
-    <div class="packet">
-        <h3 class="text-main sub-titulo">Higiene Pessoal</h3>
+    <p>{{itens}}</p>
 
-        {% for item in itensHP%}
+    {% for k,v in itens %}
+    <div class="packet">
+        <h3 class="text-main sub-titulo">{{ v.0.categoria }}</h3>
+
+        {% for item in v %}
 
             <div class="card">
-                <p>{{ item.nome }}</p>
+                <p>{{item}}</p>
                 {% if item.imagem%}
                 <img class="img-card" src="{{item.imagem.url}}">
                 {% else%}
                 <img class="img-card" src="{% static 'firn/img/logo.png'%}">
                 {% endif %}
+                <p>R$: {{ item.preco }}</p>
+                <div class="rodape-card">
+                    <p class="item-card">Nota: {{item.av}}</p>
+                    {% if item.av %}
+                        {% for a in '12345'|make_list %}
+                                {% if a|add:"0" <= item.av %}
+                                    <span class="fa fa-star checked"></span>
+                                {% else%}
+                                    <span class="fa fa-star"></span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <form>
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Adicionar">
+                    </form>
+                </div>
             </div>
+            <a></a>
         {% endfor %}
     </div>
+    {% endfor %}
 
     <hr/>
     <footer>

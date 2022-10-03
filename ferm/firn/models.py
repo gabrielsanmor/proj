@@ -28,4 +28,4 @@ class Avaliacao(models.Model):
     item = models.ForeignKey(Item,on_delete=models.CASCADE)
     
     def __str__(self):
-        return ""+self.nota
+        return "Av " + self.item.nome
