@@ -7,10 +7,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'firn/styles/main.css' %}"/>
     <link rel="icon" type="image/icon type" href="{% static 'firn/img/logo.ico'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/be5f423282.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
+
+    <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">  
+        <p><q>I am so clever that sometimes I don't understand a single word of what I am saying.   
+        </q> - <cite>Oscar Wilde</cite></p>  
+        <button id="hide">Close</button>  
+    </dialog>  
     <div class="navbar">
         <img class="navbar-item logo" src="{% static 'firn/img/logo.png'%}">
         <a href="{% url 'home' %}" class="navbar-brand">Home</a>
@@ -31,7 +38,6 @@
         </p>
 
     </div>
-    <p>{{itens}}</p>
 
     {% for k,v in itens %}
     <div class="packet">
@@ -48,7 +54,6 @@
                 {% endif %}
                 <p>R$: {{ item.preco }}</p>
                 <div class="rodape-card">
-                    <p class="item-card">Nota: {{item.av}}</p>
                     {% if item.av %}
                         {% for a in '12345'|make_list %}
                                 {% if a|add:"0" <= item.av %}
@@ -57,12 +62,30 @@
                                     <span class="fa fa-star"></span>
                             {% endif %}
                         {% endfor %}
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
                     {% endif %}
-                    <form>
+                    <form method="POST">
                         {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" value="Adicionar">
-                    </form>
+                          
+                            {{ form.non_field_errors }}
+                          
+                            {{ form.source.errors }}
+                            {{ form.source }}
+
+                            {{ form.quantidade.errors }}
+                            {% if item.quantidade %}
+                                <input type="hidden" name="id" id="id_id" value="{{ item.id }}" required>
+                                <input class="item-card input-qtd" type="number" name="quantidade" id="id_quantidade" min="1" max="{{item.quantidade}}" required>
+                                <button class="item-card button-qtd" type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
+                            {% else %}
+                                <button class="item-card button-qtd" type="submit" Disabled>Esgotado</button>
+                            {% endif %}
+                        </form>
                 </div>
             </div>
             <a></a>

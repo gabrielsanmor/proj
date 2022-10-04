@@ -1,7 +1,6 @@
-from http.client import HTTPResponse
-import imp
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.views.generic import ListView
 
 from .forms import QtdForm
@@ -25,4 +24,17 @@ class HomeListView(ListView):
         context=super(HomeListView,self).get_context_data(**kwargs)
         context['form']=QtdForm()
         return context
+    
+    def post(self, request, *args, **kwargs):
+        # context = self.get_context_data(**kwargs)
+        qtdForm = QtdForm(self.request.POST)
+        if qtdForm.is_valid():
+            self.request.session['cart'][qtdForm['id'].value()]={
+                'id':qtdForm['id'].value(),
+                'quantidade':qtdForm['quantidade'].value()}
+            url = reverse(viewname='home', kwargs={'result': 'sucesso'})
+            return HttpResponseRedirect(url)
+        else:
+            url = reverse(viewname='home', kwargs={'result': 'erro'})
+            return HttpResponseRedirect(url)
     

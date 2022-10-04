@@ -55,6 +55,7 @@ body{
 .img-card{
     max-width: 180px;
     max-height: 120px;
+    min-height: 120px;
 }
 
 .card{
@@ -104,4 +105,33 @@ body{
 .item-card{
     display: inline-block;
     *display: inline;
+}
+
+.input-qtd{
+    border-radius: 10px;
+    width: 20%;
+    border-top: 10px;
+    border-bottom: 10px;
+    text-align: center;
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.button-qtd{
+    background-color: #5DBB63;
+    border: 2px;
+    border-color: #000000;
+    border-radius: 10px;
+    border-style: solid;
+    min-width: 40%;
+    box-shadow: 20px #000000 ;
 }

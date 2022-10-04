@@ -17,6 +17,7 @@ home_list_view= views.HomeListView.as_view(
 
 urlpatterns = [
     path("", home_list_view, name="home"),
+    path("<str:result>", home_list_view, name="home"),
     path("loja", views.loja, name="loja"),
     path("sobre", views.sobre, name="sobre"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
