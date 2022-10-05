@@ -13,16 +13,32 @@
 
 <body>
 
-    <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">  
-        <p><q>I am so clever that sometimes I don't understand a single word of what I am saying.   
-        </q> - <cite>Oscar Wilde</cite></p>  
-        <button id="hide">Close</button>  
-    </dialog>  
+    {% if result %}
+
+        {% if result == "sucesso" %}
+            <dialog id="dialog-result" class="dialg success" open="">
+                <div class="dialg-div">
+                    <p style="padding:2px"><b>Sucesso!</b> item adicionado ao carrinho com sucesso!</p>  
+                </div>
+        {% else %}
+        <dialog id="dialog-result" class="dialg fail" open="">
+            <div class="dialg-div">
+                <p style="padding:2px"><b>Erro!</b> ocorreu algum problema ao adicionar ao carrinho!</p>  
+            </div>
+        {% endif %}
+            
+            <div class="dialg-div">
+                <button id="hide" class="dialg-btn" onClick="fechar()">X</button> 
+            </div>
+        </dialog>
+
+    {% endif %}
     <div class="navbar">
         <img class="navbar-item logo" src="{% static 'firn/img/logo.png'%}">
         <a href="{% url 'home' %}" class="navbar-brand">Home</a>
         <a href="{% url 'loja' %}" class="navbar-item">Loja</a>
         <a href="{% url 'sobre' %}" class="navbar-item">Sobre</a>
+        {{result}}
     </div>
 
 <div class="body-content">
@@ -97,6 +113,7 @@
     <footer>
         <p class="text-rodape">&copy; 2022</p>
     </footer>
+    <script src="{% static 'firn/dig.js' %}"></script>
 </div>
 </body>
 </html>

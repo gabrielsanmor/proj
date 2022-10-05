@@ -15,9 +15,15 @@ home_list_view= views.HomeListView.as_view(
     template_name="firn/home.html"
 )
 
+loja_list_view = views.LojaListView.as_view(
+    queryset=Item.objects.all(),
+    context_object_name='itens',
+    template_name='firn/loja.html'
+)
+
 urlpatterns = [
     path("", home_list_view, name="home"),
-    path("<str:result>", home_list_view, name="home"),
-    path("loja", views.loja, name="loja"),
+    path("loja", loja_list_view, name="loja"),
     path("sobre", views.sobre, name="sobre"),
+    path("carrinho", views.cart, name="cart"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
