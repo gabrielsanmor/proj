@@ -6,9 +6,11 @@
     {% load static %}
     {% load firn_extras %}
     <h3 class="text-second sub-titulo">Carrinho</h3>
-    <div class="bd" >
+    {% if carr %}
+    <form method="POST">
+    <div class="bd">
     <div class="packet side inline">
-        <form>
+        {% csrf_token %}
             <table class="tabler">
             {% for item in itens %}
             <tr class="item-second">
@@ -22,8 +24,9 @@
                     </div>
                 </td>
                 <td class="item-second-bl sider" >
-                    <p>Quantidade:</p> 
-                    <input class="sider-input" type='number' value="{{cart|get_item:item.id|get_item:"quantidade"}}" Disabled>
+                    <p>Quantidade:</p>
+                    <input name="id{{item.id}}" type="hidden" value="{{item.id}}">
+                    <input name="qtd{{item.id}}" class="sider-input" type="number" value="{{cart|get_item:item.id|get_item:"quantidade"}}" readonly>
                 </td>
             </tr>
             {% endfor %}
@@ -32,8 +35,17 @@
         </div>
 
     
-        <div class="packet inline">
-            aa
+        <div class="packet side inline">
+
+            <h3 class="sub-titulo">Dados De Pagamento</h3>
+            <p>Total: R${{itens|get_item_sum_all:cart}}</p>
+            
+            <input class="button-qtd" type="submit" value="Realizar Compra">
         </div>
     </div>
+    </form>
+
+    {% else %}
+        <p>Você não possui itens no seu carrinho ainda!</p>
+    {% endif %}
 {% endblock %}

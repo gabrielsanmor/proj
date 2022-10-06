@@ -58,6 +58,10 @@ class CartListView(ListView):
     model = Item
     paginate_by = 12
     
+    def post(self, request, *args, **kwargs):
+        return HttpResponse(self.request.POST.items())
+
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["carr"] = len(self.request.session.items())
