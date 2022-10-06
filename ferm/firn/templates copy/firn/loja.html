@@ -1,0 +1,97 @@
+{% extends "firn/layout.html" %}
+    {% block title %}
+        Loja
+    {% endblock %}
+    {% block content %}
+    {% load static %}
+    {% if result %}
+        {% if result == "sucesso" %}
+            <dialog id="dialog-result" class="dialg success" open="">
+                <div class="dialg-div">
+                    <p style="padding:2px"><b>Sucesso!</b> item adicionado ao carrinho com sucesso!</p>  
+                </div>
+        {% else %}
+        <dialog id="dialog-result" class="dialg fail" open="">
+            <div class="dialg-div">
+                <p style="padding:2px"><b>Erro!</b> ocorreu algum problema ao adicionar ao carrinho!</p>  
+            </div>
+        {% endif %}
+            <div class="dialg-div">
+                <button id="hide" class="dialg-btn" onClick="fechar()">X</button> 
+            </div>
+        </dialog>
+    {% endif %}
+
+        <h2 class="text-main sub-titulo">Produtos</h2>
+        <div class="packet">
+            {% for item in itens %}
+
+                <div class="card">
+                    <p>{{item}}</p>
+                    {% if item.imagem %}
+                        <img class="img-card" src="{{item.imagem.url}}">
+                    {% else %}
+                        <img class="img-card" src="{% static 'firn/img/logo.png'%}">
+                    {% endif %}
+                    <p>R$: {{ item.preco }}</p>
+                    <div class="rodape-card">
+                    {% if item.av %}
+                        {% for a in '12345'|make_list %}
+                            {% if a|add:"0" <= item.av %}
+                                <span class="fa fa-star checked"></span>
+                                {% else%}
+                                <span class="fa fa-star"></span>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                          
+                            {{ form.non_field_errors }}
+                          
+                            {{ form.source.errors }}
+                            {{ form.source }}
+
+                            {{ form.quantidade.errors }}
+                            {% if item.quantidade %}
+                                <input type="hidden" name="id" id="id_id" value="{{ item.id }}" required>
+                                <input class="item-card input-qtd" type="number" name="quantidade" id="id_quantidade" min="1" max="{{item.quantidade}}" required>
+                                <button class="item-card button-qtd" type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
+                            {% else %}
+                                <button class="item-card button-qtd" type="submit" Disabled>Esgotado</button>
+                            {% endif %}
+                        </form>
+                </div>
+            </div>
+            <a></a>
+        {% endfor %}        
+    </div>
+
+    {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    {% endblock %}

@@ -1,6 +1,6 @@
 from re import template
 from django.urls import path
-from firn import views
+from . import views
 from .models import Item
 from django.conf import settings
 from django.db.models import Avg
@@ -21,9 +21,14 @@ loja_list_view = views.LojaListView.as_view(
     template_name='firn/loja.html'
 )
 
+cart_list_view = views.CartListView.as_view(
+    context_object_name='itens',
+    template_name='firn/cart.html'
+)
+
 urlpatterns = [
     path("", home_list_view, name="home"),
     path("loja", loja_list_view, name="loja"),
     path("sobre", views.sobre, name="sobre"),
-    path("carrinho", views.cart, name="cart"),
+    path("carrinho", cart_list_view, name="cart"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
