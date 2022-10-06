@@ -37,7 +37,12 @@
 body{
     overflow-x: hidden;
     margin: 0;
-    background-color: #F4F1F1;
+    background-color: #E4E1E1;
+}
+
+.bd{
+    width: 100%;
+    margin: auto;
 }
 
 .packet{
@@ -192,4 +197,56 @@ input[type=number] {
     border-radius: 10px;
     color: #F0FFF0;
     background-color: #ff8bad;
+}
+
+.text-second{
+    text-align: start;
+    margin-left: 10%;
+    margin-right: auto;
+}
+
+.img-second{
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 140px;
+    width: 120px;
+}
+
+.inline{
+    display: inline-block;
+    *display: inline;
+}
+
+.item-second-bl{
+    display: inline-block;
+    *display: inline;
+    margin-left: 25px;
+}
+
+.item-second{
+    display: flex;
+}
+
+.side{
+    width:fit-content
+}
+
+.sider{
+    text-align: right;
+    width: 240px;
+    margin-right: 5%;
+}
+
+.tabler{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sider-input{
+    width: 20px;
+    text-align: center;
+}
+
+.text-second{
+    text-align: left;
 }

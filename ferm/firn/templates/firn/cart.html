@@ -4,25 +4,36 @@
 {% endblock %}
 {% block content %}
     {% load static %}
-        <h3 class="text-second sub-titulo">Carrinho</h3>
-        <div class="packet side">
-            <form>
-            {%for item in itens%}
-            <div class="item-second">
-                <div class="item-second-bl" style="width:120px">
+    {% load firn_extras %}
+    <h3 class="text-second sub-titulo">Carrinho</h3>
+    <div class="bd" >
+    <div class="packet side inline">
+        <form>
+            <table class="tabler">
+            {% for item in itens %}
+            <tr class="item-second">
+                <td class="item-second-bl" style="width:120px; height:140px">
                     <img src="{{item.imagem.url}}" class="img-second">
-                </div>
-                <div class="item-second-bl">
-                    <p class="text-main">{{item.nome}}</p>
-                    <div class="rodape-card">
+                </td>
+                <td class="item-second-bl sider">
+                    <p class="text-second">{{item.nome}}</p>
+                    <div class="rodape-card text-second">
                         <p>R$: {{ item.preco }}</p>
                     </div>
-                </div>
-                <div class="item-second-bl">
-                    <p>Quantidade: {{cart[item.id].quantidade}}</p>
-                </div>
-            </div>
+                </td>
+                <td class="item-second-bl sider" >
+                    <p>Quantidade:</p> 
+                    <input class="sider-input" type='number' value="{{cart|get_item:item.id|get_item:"quantidade"}}" Disabled>
+                </td>
+            </tr>
             {% endfor %}
+            </table>
             </form>
         </div>
+
+    
+        <div class="packet inline">
+            aa
+        </div>
+    </div>
 {% endblock %}

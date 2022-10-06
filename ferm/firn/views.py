@@ -61,7 +61,7 @@ class CartListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["carr"] = len(self.request.session.items())
-        context["cart"] = self.request.session.items()
+        context["cart"] = dict(self.request.session.items())
         return context
 
     def get_queryset(self):
