@@ -8,6 +8,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
+def a(request):
+    return render(request,'firn/angular_layout.html')
+
 def sobre(request):
     return render(request,'firn/sobre.html')
 

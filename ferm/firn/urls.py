@@ -26,9 +26,11 @@ cart_list_view = views.CartListView.as_view(
     template_name='firn/cart.html'
 )
 
+
 urlpatterns = [
     path("", home_list_view, name="home"),
     path("loja", loja_list_view, name="loja"),
     path("sobre", views.sobre, name="sobre"),
     path("carrinho", cart_list_view, name="cart"),
+    path("a",views.a,name="a")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
